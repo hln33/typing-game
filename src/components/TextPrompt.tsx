@@ -1,24 +1,23 @@
-import { Component, Index } from 'solid-js';
+import { Component, Index } from "solid-js";
 
 const TextPrompt: Component<{ userTypedText: string }> = (props) => {
-  const prompt = 'Type this text!';
+  const prompt = "Type this text!";
 
   return (
     <div>
-      <Index each={prompt.split('')}>
+      <Index each={prompt.split("")}>
         {(char, index) => {
-          const className = () => {
+          const textColor = () => {
             const isTyped = props.userTypedText.at(index) !== undefined;
-
             if (isTyped) {
               const isCorrect = props.userTypedText.at(index) === char();
-              return isCorrect ? 'correct' : 'incorrect';
+              return isCorrect ? "text-yellow-400" : "text-rose-500";
             } else {
-              return '';
+              return "text-gray-400";
             }
           };
 
-          return <span class={className()}>{char()}</span>;
+          return <span class={`text-5xl ${textColor()}`}>{char()}</span>;
         }}
       </Index>
     </div>

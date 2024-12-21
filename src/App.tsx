@@ -22,6 +22,7 @@ const App: Component = () => {
 
         <TextPrompt userTypedText={typedText()} />
         <input
+          class="text-black"
           type="text"
           value={typedText()}
           onInput={handleInput}
