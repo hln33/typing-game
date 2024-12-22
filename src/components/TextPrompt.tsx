@@ -35,7 +35,7 @@ const TextPrompt: Component<{
         </div>
       </Show>
 
-      <div class="flex gap-1">
+      <div class="flex flex-wrap gap-1">
         <Index each={props.prompt.split("")}>
           {(char, index) => {
             const textColor = () =>
