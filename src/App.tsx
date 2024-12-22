@@ -12,7 +12,7 @@ const App: Component = () => {
   const [typedText, setTypedText] = createSignal("");
   const [active, setActive] = createSignal(false);
   const [timeLimit, setTimeLimit] = createSignal(15);
-  const [summaryVisible, setSummaryVisible] = createSignal(true);
+  const [summaryVisible, setSummaryVisible] = createSignal(false);
 
   const handleInput = (event: InputEvent) => {
     if (!active()) {
@@ -49,6 +49,7 @@ const App: Component = () => {
         />
 
         <TimeSelect
+          class="mb-8"
           selectedTimeLimit={timeLimit()}
           onTimeLimitChange={handleTimeLimitChange}
         />

@@ -25,7 +25,7 @@ const TextPrompt: Component<{
       <Show when={isFocused()}>
         <div
           id="caret"
-          class="absolute flex gap-1 text-5xl"
+          class="absolute flex flex-wrap gap-1 text-5xl"
         >
           <For each={userProgress().split("")}>
             {(char, _index) => (
@@ -57,6 +57,7 @@ const TextPrompt: Component<{
         id={HIDDEN_INPUT_ID}
         class="absolute left-0 top-0 size-full opacity-0"
         type="text"
+        autocomplete="off"
         value={props.userTypedText}
         onInput={(e: InputEvent) => props.handleInput(e)}
         onFocusIn={() => setIsFocused(true)}

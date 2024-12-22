@@ -27,10 +27,7 @@ const Timer: Component<{
     }
   });
 
-  onCleanup(() => {
-    if (timer === null) return;
-    clearInterval(timer);
-  });
+  onCleanup(() => clearInterval(timer));
 
   const formattedTime = () => {
     if (props.secondsLeft <= 0) {
