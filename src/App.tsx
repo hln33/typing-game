@@ -2,11 +2,17 @@ import { createSignal, type Component } from "solid-js";
 
 import logo from "./logo.svg";
 import TextPrompt from "./components/TextPrompt";
+import Timer from "./components/Timer";
 
 const App: Component = () => {
-  const [typedText, setTypedText] = createSignal("");
+  const [typedText, setTypedText] = createSignal<string>("");
+  const [isStarted, setIsStarted] = createSignal(false);
 
   const handleInput = (event: InputEvent) => {
+    if (isStarted() === false) {
+      setIsStarted(true);
+    }
+
     setTypedText((event.target as HTMLInputElement).value);
   };
 
@@ -19,6 +25,10 @@ const App: Component = () => {
           alt="logo"
         />
 
+        <Timer
+          active={isStarted()}
+          setActive={setIsStarted}
+        />
         <TextPrompt userTypedText={typedText()} />
         <input
           class="text-black"
