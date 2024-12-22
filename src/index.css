@@ -24,7 +24,15 @@ code {
     transform: rotate(360deg);
   }
 }
-
 .logo-spin {
   animation: logo-spin 20s linear infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.animate-blink {
+  animation: blink 1.5s step-start infinite;
 }

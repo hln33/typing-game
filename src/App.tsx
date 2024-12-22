@@ -1,11 +1,10 @@
-import { createEffect, createSignal, type Component } from "solid-js";
+import { createSignal, type Component } from "solid-js";
 
 import logo from "./logo.svg";
 import TextPrompt from "./components/TextPrompt";
 
 const App: Component = () => {
   const [typedText, setTypedText] = createSignal("");
-  createEffect(() => console.log(typedText()));
 
   const handleInput = (event: InputEvent) => {
     setTypedText((event.target as HTMLInputElement).value);
