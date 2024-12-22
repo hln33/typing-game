@@ -1,4 +1,4 @@
-import { Component, createSignal, For, Index, Show } from "solid-js";
+import { Component, createSignal, Index, Show } from "solid-js";
 
 const HIDDEN_INPUT_ID = "textInput";
 
@@ -11,8 +11,6 @@ const TextPrompt: Component<{
     document.activeElement === document?.getElementById(HIDDEN_INPUT_ID),
   );
 
-  const userProgress = () => props.prompt.slice(0, props.userTypedText.length);
-
   const getTextColor = (attempt: string | null, target: string) => {
     if (attempt === null) {
       return "text-gray-400";
@@ -20,34 +18,26 @@ const TextPrompt: Component<{
     return attempt === target ? "text-yellow-400" : "text-rose-500";
   };
 
+  const userProgress = () => props.prompt.slice(0, props.userTypedText.length);
+
   return (
     <div class="relative">
-      <Show when={isFocused()}>
-        <div
-          id="caret"
-          class="absolute flex flex-wrap gap-1 text-5xl"
-        >
-          <For each={userProgress().split("")}>
-            {(char, _index) => (
-              <span class="invisible whitespace-pre">{char}</span>
-            )}
-          </For>
-          <span class="absolute animate-blink text-yellow-400 left-full">
-            |
-          </span>
-        </div>
-      </Show>
-
       <div class="flex flex-wrap gap-1">
         <Index each={props.prompt.split("")}>
           {(char, index) => {
             const textColor = () =>
               getTextColor(props.userTypedText.at(index) ?? null, char());
+            const isLastTypedChar = () => index === userProgress().length - 1;
 
             return (
-              <span class={`text-5xl whitespace-pre ${textColor()}`}>
-                {char()}
-              </span>
+              <div class="relative text-5xl">
+                <span class={`whitespace-pre ${textColor()}`}>{char()}</span>
+                <Show when={isLastTypedChar()}>
+                  <span class="absolute left-full animate-blink text-yellow-400">
+                    |
+                  </span>
+                </Show>
+              </div>
             );
           }}
         </Index>
