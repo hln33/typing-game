@@ -5,6 +5,13 @@ const TextPrompt: Component<{ prompt: string; userTypedText: string }> = (
 ) => {
   const userProgress = () => props.prompt.slice(0, props.userTypedText.length);
 
+  const getTextColor = (attempt: string | null, target: string) => {
+    if (attempt === null) {
+      return "text-gray-400";
+    }
+    return attempt === target ? "text-yellow-400" : "text-rose-500";
+  };
+
   return (
     <div>
       <div
@@ -22,16 +29,8 @@ const TextPrompt: Component<{ prompt: string; userTypedText: string }> = (
       <div class="flex gap-1">
         <Index each={props.prompt.split("")}>
           {(char, index) => {
-            const textColor = () => {
-              const isTyped = props.userTypedText.at(index) !== undefined;
-
-              if (isTyped) {
-                const isCorrect = props.userTypedText.at(index) === char();
-                return isCorrect ? "text-yellow-400" : "text-rose-500";
-              } else {
-                return "text-gray-400";
-              }
-            };
+            const textColor = () =>
+              getTextColor(props.userTypedText.at(index) ?? null, char());
 
             return (
               <span class={`text-5xl whitespace-pre ${textColor()}`}>
