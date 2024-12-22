@@ -1,19 +1,35 @@
-import { Component } from "solid-js";
+import { Component, For } from "solid-js";
+import { ToggleGroup } from "@kobalte/core/toggle-group";
 
-const TimeSelect: Component = () => {
+const DEFAULT_TIME_LIMIT = 30;
+
+const TimeSelect: Component<{
+  selectedTimeLimit: number;
+  onTimeLimitChange: (timeLimit: number) => void;
+}> = (props) => {
   return (
     <section>
-      <label for="time-select">Choose a time limit:</label>
-      <select
-        id="time-select"
-        class="text-black"
-        name="time-limits"
+      <h2>Time Limit:</h2>
+      <ToggleGroup
+        class="flex gap-2"
+        value={props.selectedTimeLimit.toString()}
+        onChange={(value) =>
+          props.onTimeLimitChange(
+            Number.parseInt(value ?? DEFAULT_TIME_LIMIT.toString()),
+          )
+        }
       >
-        <option value={15}>15</option>
-        <option value={30}>30</option>
-        <option value={45}>45</option>
-        <option value={60}>60</option>
-      </select>
+        <For each={[15, 30, 45, 60]}>
+          {(timeLimit, _i) => (
+            <ToggleGroup.Item
+              class="ui-pressed:bg-yellow-600"
+              value={timeLimit.toString()}
+            >
+              {timeLimit}
+            </ToggleGroup.Item>
+          )}
+        </For>
+      </ToggleGroup>
     </section>
   );
 };

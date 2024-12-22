@@ -1,40 +1,44 @@
-import { Component, createEffect, createSignal, onCleanup } from "solid-js";
+import { Component, createEffect, onCleanup } from "solid-js";
 
 const Timer: Component<{
+  secondsLeft: number;
   isActive: boolean;
-  setIsActive: (state: boolean) => void;
+  setSecondsLeft: (value: number) => void;
   setDone: () => void;
 }> = (props) => {
-  const [secondsLeft, setSecondsLeft] = createSignal(5);
-  let timer: number | null = null;
+  let timer: number | undefined;
 
   createEffect(() => {
-    if (props.isActive && timer === null) {
+    if (props.isActive && timer === undefined) {
       timer = setInterval(() => {
-        setSecondsLeft(secondsLeft() - 1);
+        props.setSecondsLeft(props.secondsLeft - 1);
       }, 1000);
     }
 
-    if (secondsLeft() === 0 && timer !== null) {
-      props.setIsActive(false);
+    if (props.secondsLeft === 0) {
       props.setDone();
       clearInterval(timer);
+      timer = undefined;
+    }
+
+    if (!props.isActive) {
+      clearInterval(timer);
+      timer = undefined;
     }
   });
 
   onCleanup(() => {
     if (timer === null) return;
-
     clearInterval(timer);
   });
 
   const formattedTime = () => {
-    if (secondsLeft() <= 0) {
+    if (props.secondsLeft <= 0) {
       return "0:00";
     }
 
-    const minutes = Math.floor(secondsLeft() / 60);
-    const seconds = secondsLeft() % 60;
+    const minutes = Math.floor(props.secondsLeft / 60);
+    const seconds = props.secondsLeft % 60;
     const leadingZero = seconds < 10 ? "0" : "";
 
     return `${minutes}:${leadingZero}${seconds}`;

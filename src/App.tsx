@@ -19,13 +19,25 @@ const App: Component = () => {
   const [timeLimit, setTimeLimit] = createSignal(15);
 
   const handleInput = (event: InputEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-
     if (!isStarted()) {
       setIsStarted(true);
     }
+
+    console.log(isStarted());
+
     setTypedText((event.target as HTMLInputElement).value);
+  };
+
+  const handleTimeLimitChange = (newTimeLimit: number) => {
+    setTimeLimit(newTimeLimit);
+    setTypedText("");
+    setIsStarted(false);
+    setIsDone(false);
+  };
+
+  const handleGameDone = () => {
+    setIsStarted(false);
+    setIsDone(true);
   };
 
   return (
@@ -43,12 +55,16 @@ const App: Component = () => {
           />
         </Show>
 
-        <TimeSelect />
+        <TimeSelect
+          selectedTimeLimit={timeLimit()}
+          onTimeLimitChange={handleTimeLimitChange}
+        />
 
         <Timer
+          secondsLeft={timeLimit()}
+          setSecondsLeft={setTimeLimit}
           isActive={isStarted()}
-          setIsActive={setIsStarted}
-          setDone={() => setIsDone(true)}
+          setDone={handleGameDone}
         />
         <div class="relative">
           <TextPrompt
