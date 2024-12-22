@@ -1,4 +1,4 @@
-import { createSignal, Show, type Component } from "solid-js";
+import { createSignal, type Component } from "solid-js";
 
 import TextPrompt from "./components/TextPrompt";
 import Timer from "./components/Timer";
@@ -15,15 +15,13 @@ const App: Component = () => {
     document.activeElement === document?.getElementById(INPUT_ID),
   );
   const [isStarted, setIsStarted] = createSignal(false);
-  const [isDone, setIsDone] = createSignal(false);
   const [timeLimit, setTimeLimit] = createSignal(15);
+  const [summaryVisible, setSummaryVisible] = createSignal(true);
 
   const handleInput = (event: InputEvent) => {
     if (!isStarted()) {
       setIsStarted(true);
     }
-
-    console.log(isStarted());
 
     setTypedText((event.target as HTMLInputElement).value);
   };
@@ -32,12 +30,11 @@ const App: Component = () => {
     setTimeLimit(newTimeLimit);
     setTypedText("");
     setIsStarted(false);
-    setIsDone(false);
   };
 
   const handleGameDone = () => {
     setIsStarted(false);
-    setIsDone(true);
+    setSummaryVisible(true);
   };
 
   return (
@@ -47,13 +44,14 @@ const App: Component = () => {
       </header>
 
       <main class="py-16 flex flex-col gap-4 items-center justify-center">
-        <Show when={isDone()}>
-          <Summary
-            typedText={typedText()}
-            prompt={prompt}
-            secondsTaken={60}
-          />
-        </Show>
+        <Summary
+          visible={summaryVisible()}
+          onInteractOutside={() => setSummaryVisible(false)}
+          onCloseButtonClick={() => setSummaryVisible(false)}
+          typedText={typedText()}
+          prompt={prompt}
+          secondsTaken={60}
+        />
 
         <TimeSelect
           selectedTimeLimit={timeLimit()}
