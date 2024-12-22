@@ -16,23 +16,11 @@ code {
     monospace;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.logo-spin {
-  animation: logo-spin 20s linear infinite;
-}
-
 @keyframes blink {
   50% {
     opacity: 0;
   }
 }
 .animate-blink {
-  animation: blink 1.5s step-start infinite;
+  animation: blink 1s step-start infinite;
 }

@@ -13,12 +13,21 @@ const Summary: Component<{
   };
 
   return (
-    <div>
-      <p>What you typed: {props.typedText.slice(0, props.prompt.length)}</p>
-      <p>What was given: {props.prompt}</p>
-      <p>Time taken: {props.secondsTaken}</p>
-      <p>Accuracy: {accuracyPercentage()}%</p>
-    </div>
+    <section>
+      <p>
+        <span class="font-bold">What you typed</span>:{" "}
+        {props.typedText.slice(0, props.prompt.length)}
+      </p>
+      <p>
+        <span class="font-bold">What was given</span>: {props.prompt}
+      </p>
+      <p>
+        <span class="font-bold">Time taken</span>: {props.secondsTaken}
+      </p>
+      <p>
+        <span class="font-bold">Accuracy</span>: {accuracyPercentage()}%
+      </p>
+    </section>
   );
 };
 

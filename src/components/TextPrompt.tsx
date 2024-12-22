@@ -1,8 +1,10 @@
-import { Component, For, Index } from "solid-js";
+import { Component, For, Index, Show } from "solid-js";
 
-const TextPrompt: Component<{ prompt: string; userTypedText: string }> = (
-  props,
-) => {
+const TextPrompt: Component<{
+  isFocused: boolean;
+  prompt: string;
+  userTypedText: string;
+}> = (props) => {
   const userProgress = () => props.prompt.slice(0, props.userTypedText.length);
 
   const getTextColor = (attempt: string | null, target: string) => {
@@ -14,17 +16,24 @@ const TextPrompt: Component<{ prompt: string; userTypedText: string }> = (
 
   return (
     <div>
-      <div
-        id="caret"
-        class="absolute flex gap-1 text-5xl"
-      >
-        <For each={userProgress().split("")}>
-          {(char, _index) => (
-            <span class="invisible whitespace-pre">{char}</span>
-          )}
-        </For>
-        <span class="absolute animate-blink text-yellow-400 left-full">|</span>
-      </div>
+      <Show when={props.isFocused}>
+        <div
+          id="caret"
+          class="absolute flex gap-1 text-5xl"
+        >
+          <For each={userProgress().split("")}>
+            {(char, _index) => (
+              <span class="invisible whitespace-pre">{char}</span>
+            )}
+          </For>
+          <span
+            id="caret"
+            class="absolute animate-blink text-yellow-400 left-full"
+          >
+            |
+          </span>
+        </div>
+      </Show>
 
       <div class="flex gap-1">
         <Index each={props.prompt.split("")}>
