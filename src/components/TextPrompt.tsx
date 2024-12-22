@@ -18,8 +18,6 @@ const TextPrompt: Component<{
     return attempt === target ? "text-yellow-400" : "text-rose-500";
   };
 
-  const userProgress = () => props.prompt.slice(0, props.userTypedText.length);
-
   return (
     <div class="relative">
       <div class="flex flex-wrap gap-1">
@@ -27,7 +25,7 @@ const TextPrompt: Component<{
           {(char, index) => {
             const textColor = () =>
               getTextColor(props.userTypedText.at(index) ?? null, char());
-            const isNextChar = () => index === userProgress().length;
+            const isNextChar = () => index === props.userTypedText.length;
 
             return (
               <div class="relative text-5xl">
