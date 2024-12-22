@@ -1,8 +1,9 @@
 import { Component, For, Index } from "solid-js";
 
-const TextPrompt: Component<{ userTypedText: string }> = (props) => {
-  const prompt = "Type this text!";
-  const userProgress = () => prompt.substring(0, props.userTypedText.length);
+const TextPrompt: Component<{ prompt: string; userTypedText: string }> = (
+  props,
+) => {
+  const userProgress = () => props.prompt.slice(0, props.userTypedText.length);
 
   return (
     <div>
@@ -19,7 +20,7 @@ const TextPrompt: Component<{ userTypedText: string }> = (props) => {
       </div>
 
       <div class="flex gap-1">
-        <Index each={prompt.split("")}>
+        <Index each={props.prompt.split("")}>
           {(char, index) => {
             const textColor = () => {
               const isTyped = props.userTypedText.at(index) !== undefined;

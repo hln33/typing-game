@@ -1,21 +1,23 @@
 import { Component, createEffect, createSignal, onCleanup } from "solid-js";
 
 const Timer: Component<{
-  active: boolean;
-  setActive: (state: boolean) => void;
+  isActive: boolean;
+  setIsActive: (state: boolean) => void;
+  setDone: () => void;
 }> = (props) => {
   const [secondsLeft, setSecondsLeft] = createSignal(5);
   let timer: number | null = null;
 
   createEffect(() => {
-    if (props.active && timer === null) {
+    if (props.isActive && timer === null) {
       timer = setInterval(() => {
         setSecondsLeft(secondsLeft() - 1);
       }, 1000);
     }
 
     if (secondsLeft() === 0 && timer !== null) {
-      props.setActive(false);
+      props.setIsActive(false);
+      props.setDone();
       clearInterval(timer);
     }
   });
@@ -40,7 +42,7 @@ const Timer: Component<{
 
   return (
     <p>
-      {formattedTime()} -- {props.active.toString()}
+      {formattedTime()} -- {props.isActive.toString()}
     </p>
   );
 };
