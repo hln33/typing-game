@@ -8,14 +8,14 @@ const TextPrompt: Component<{ userTypedText: string }> = (props) => {
     <div>
       <div
         id="caret"
-        class="absolute flex gap-1 text-5xl text-yellow-400"
+        class="absolute flex gap-1 text-5xl"
       >
         <For each={userProgress().split("")}>
           {(char, _index) => (
             <span class="invisible whitespace-pre">{char}</span>
           )}
         </For>
-        <span class="absolute animate-blink left-full">|</span>
+        <span class="absolute animate-blink text-yellow-400 left-full">|</span>
       </div>
 
       <div class="flex gap-1">

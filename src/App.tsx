@@ -15,7 +15,7 @@ const App: Component = () => {
       <header class="bg-slate-800 min-h-screen flex flex-col items-center justify-center text-white">
         <img
           src={logo}
-          class="logo-spin h-80"
+          class="h-80"
           alt="logo"
         />
 
