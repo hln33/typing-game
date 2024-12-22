@@ -1,10 +1,16 @@
-import { Component, For, Index, Show } from "solid-js";
+import { Component, createSignal, For, Index, Show } from "solid-js";
+
+const HIDDEN_INPUT_ID = "textInput";
 
 const TextPrompt: Component<{
-  displayCaret: boolean;
   prompt: string;
   userTypedText: string;
+  handleInput: (event: InputEvent) => void;
 }> = (props) => {
+  const [isFocused, setIsFocused] = createSignal<boolean>(
+    document.activeElement === document?.getElementById(HIDDEN_INPUT_ID),
+  );
+
   const userProgress = () => props.prompt.slice(0, props.userTypedText.length);
 
   const getTextColor = (attempt: string | null, target: string) => {
@@ -15,8 +21,8 @@ const TextPrompt: Component<{
   };
 
   return (
-    <div>
-      <Show when={props.displayCaret}>
+    <div class="relative">
+      <Show when={isFocused()}>
         <div
           id="caret"
           class="absolute flex gap-1 text-5xl"
@@ -26,10 +32,7 @@ const TextPrompt: Component<{
               <span class="invisible whitespace-pre">{char}</span>
             )}
           </For>
-          <span
-            id="caret"
-            class="absolute animate-blink text-yellow-400 left-full"
-          >
+          <span class="absolute animate-blink text-yellow-400 left-full">
             |
           </span>
         </div>
@@ -49,6 +52,16 @@ const TextPrompt: Component<{
           }}
         </Index>
       </div>
+
+      <input
+        id={HIDDEN_INPUT_ID}
+        class="absolute left-0 top-0 size-full opacity-0"
+        type="text"
+        value={props.userTypedText}
+        onInput={(e: InputEvent) => props.handleInput(e)}
+        onFocusIn={() => setIsFocused(true)}
+        onFocusOut={() => setIsFocused(false)}
+      />
     </div>
   );
 };

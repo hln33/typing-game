@@ -23,7 +23,7 @@ const Summary: Component<{
       onOpenChange={() => props.onCloseButtonClick()}
     >
       <Dialog.Portal>
-        <Dialog.Overlay class="fixed  inset-0  z-50 bg-black opacity-50" />
+        <Dialog.Overlay class="fixed inset-0 z-50 bg-black opacity-50" />
         <div class="fixed inset-0 z-50 flex items-center justify-center">
           <Dialog.Content
             class="max-w-fit p-10 rounded-lg bg-slate-800 text-white"

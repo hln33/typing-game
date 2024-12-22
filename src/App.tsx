@@ -5,35 +5,30 @@ import Timer from "./components/Timer";
 import Summary from "./components/Summary";
 import TimeSelect from "./components/TimeSelect";
 
-const INPUT_ID = "textInput";
 const prompt =
   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
 const App: Component = () => {
   const [typedText, setTypedText] = createSignal("");
-  const [isFocused, setIsFocused] = createSignal<boolean>(
-    document.activeElement === document?.getElementById(INPUT_ID),
-  );
-  const [isStarted, setIsStarted] = createSignal(false);
+  const [active, setActive] = createSignal(false);
   const [timeLimit, setTimeLimit] = createSignal(15);
   const [summaryVisible, setSummaryVisible] = createSignal(true);
 
   const handleInput = (event: InputEvent) => {
-    if (!isStarted()) {
-      setIsStarted(true);
+    if (!active()) {
+      setActive(true);
     }
-
     setTypedText((event.target as HTMLInputElement).value);
   };
 
   const handleTimeLimitChange = (newTimeLimit: number) => {
     setTimeLimit(newTimeLimit);
     setTypedText("");
-    setIsStarted(false);
+    setActive(false);
   };
 
   const handleGameDone = () => {
-    setIsStarted(false);
+    setActive(false);
     setSummaryVisible(true);
   };
 
@@ -61,25 +56,14 @@ const App: Component = () => {
         <Timer
           secondsLeft={timeLimit()}
           setSecondsLeft={setTimeLimit}
-          isActive={isStarted()}
+          isActive={active()}
           setDone={handleGameDone}
         />
-        <div class="relative">
-          <TextPrompt
-            displayCaret={isFocused()}
-            prompt={prompt}
-            userTypedText={typedText()}
-          />
-          <input
-            id={INPUT_ID}
-            class="absolute left-0 top-0 size-full opacity-0"
-            type="text"
-            value={typedText()}
-            onInput={handleInput}
-            onFocusIn={() => setIsFocused(true)}
-            onFocusOut={() => setIsFocused(false)}
-          />
-        </div>
+        <TextPrompt
+          prompt={prompt}
+          userTypedText={typedText()}
+          handleInput={handleInput}
+        />
       </main>
     </div>
   );
