@@ -25,11 +25,7 @@ const App: Component = () => {
   return (
     <div
       class="bg-slate-800 border-2 text-center min-h-screen text-white"
-      onClick={() => {
-        console.log("here");
-        document.getElementById(INPUT_ID)?.focus();
-        setIsFocused(true);
-      }}
+      onClick={() => document.getElementById(INPUT_ID)?.focus()}
     >
       <header>
         <h1 class="py-16 text-6xl">Code Type</h1>
@@ -60,6 +56,7 @@ const App: Component = () => {
           type="text"
           value={typedText()}
           onInput={handleInput}
+          onFocusIn={() => setIsFocused(true)}
           onFocusOut={() => setIsFocused(false)}
         />
       </main>
