@@ -1,7 +1,7 @@
 import { Component, For, Index, Show } from "solid-js";
 
 const TextPrompt: Component<{
-  isFocused: boolean;
+  displayCaret: boolean;
   prompt: string;
   userTypedText: string;
 }> = (props) => {
@@ -16,7 +16,7 @@ const TextPrompt: Component<{
 
   return (
     <div>
-      <Show when={props.isFocused}>
+      <Show when={props.displayCaret}>
         <div
           id="caret"
           class="absolute flex gap-1 text-5xl"

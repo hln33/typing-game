@@ -40,11 +40,7 @@ const Timer: Component<{
     return `${minutes}:${leadingZero}${seconds}`;
   };
 
-  return (
-    <p>
-      {formattedTime()} -- {props.isActive.toString()}
-    </p>
-  );
+  return <p>{formattedTime()}</p>;
 };
 
 export default Timer;

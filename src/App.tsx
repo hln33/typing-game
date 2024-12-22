@@ -16,7 +16,7 @@ const App: Component = () => {
   const [isDone, setIsDone] = createSignal(false);
 
   const handleInput = (event: InputEvent) => {
-    if (isStarted() === false) {
+    if (!isStarted()) {
       setIsStarted(true);
     }
     setTypedText((event.target as HTMLInputElement).value);
@@ -46,7 +46,7 @@ const App: Component = () => {
           setDone={() => setIsDone(true)}
         />
         <TextPrompt
-          isFocused={isFocused()}
+          displayCaret={isFocused()}
           prompt={prompt}
           userTypedText={typedText()}
         />
