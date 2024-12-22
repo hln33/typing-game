@@ -27,13 +27,13 @@ const TextPrompt: Component<{
           {(char, index) => {
             const textColor = () =>
               getTextColor(props.userTypedText.at(index) ?? null, char());
-            const isLastTypedChar = () => index === userProgress().length - 1;
+            const isNextChar = () => index === userProgress().length;
 
             return (
               <div class="relative text-5xl">
                 <span class={`whitespace-pre ${textColor()}`}>{char()}</span>
-                <Show when={isLastTypedChar()}>
-                  <span class="absolute left-full animate-blink text-yellow-400">
+                <Show when={isFocused() && isNextChar()}>
+                  <span class="absolute right-full animate-blink text-yellow-400">
                     |
                   </span>
                 </Show>
