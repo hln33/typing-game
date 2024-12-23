@@ -1,4 +1,5 @@
 import { Component, createSignal, Index, Show } from "solid-js";
+import PauseIcon from "~icons/solar/pause-bold";
 
 const HIDDEN_INPUT_ID = "hidden-input";
 
@@ -24,7 +25,7 @@ const TextPrompt: Component<{
   };
 
   return (
-    <div class="relative">
+    <div class="relative p-8">
       <div class="flex flex-wrap gap-1">
         <Index each={props.prompt.split("")}>
           {(char, index) => {
@@ -48,7 +49,7 @@ const TextPrompt: Component<{
 
       <input
         id={HIDDEN_INPUT_ID}
-        class="absolute left-0 top-0 size-full opacity-0"
+        class="absolute z-50 inset-0 size-full opacity-0"
         type="text"
         autocomplete="off"
         value={props.userTypedText}
@@ -56,6 +57,16 @@ const TextPrompt: Component<{
         onFocusIn={() => setIsFocused(true)}
         onFocusOut={() => setIsFocused(false)}
       />
+
+      <Show when={!isFocused()}>
+        <div class="absolute z-0 inset-0 pt-10 flex flex-col items-center text-gray-300 bg-slate-900/90">
+          <PauseIcon class="size-1/4" />
+          <span class="relative">
+            <span class="text-5xl text-center">Paused</span>
+            <span class="absolute bottom-0 left-full text-5xl">...</span>
+          </span>
+        </div>
+      </Show>
     </div>
   );
 };
