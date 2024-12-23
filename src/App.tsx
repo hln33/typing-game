@@ -6,10 +6,7 @@ import Summary from "./components/Summary";
 import TimeSelect from "./components/TimeSelect";
 
 const DEFAULT_TIME_LIMIT = 15;
-// const prompt =
-//   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-// const prompt = "print('hey')\nprint('hello world!')";
-const prompt = "p\nprint('hello world!')";
+const DUMMY_PROMPT = "p\nprint('hello world!')";
 
 const App: Component = () => {
   const [typedText, setTypedText] = createSignal("");
@@ -54,7 +51,7 @@ const App: Component = () => {
           onInteractOutside={() => handleSummaryClose()}
           onCloseButtonClick={() => handleSummaryClose()}
           typedText={typedText()}
-          prompt={prompt}
+          prompt={DUMMY_PROMPT}
           secondsTaken={60}
         />
 
@@ -71,7 +68,7 @@ const App: Component = () => {
           setDone={handleGameDone}
         />
         <TextPrompt
-          prompt={prompt}
+          prompt={DUMMY_PROMPT}
           userTypedText={typedText()}
           handleInput={handleTextInput}
         />
