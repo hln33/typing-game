@@ -3,6 +3,17 @@ import PauseIcon from "~icons/solar/pause-bold";
 
 const HIDDEN_INPUT_ID = "hidden-input";
 
+const getTextColor = (attempt: string | null, target: string) => {
+  if (attempt === null) {
+    return "text-gray-400";
+  }
+  console.assert(
+    attempt.length === 1 && target.length === 1,
+    `should only be comparing single characters -- attempt: ${attempt} target: ${target}`,
+  );
+  return attempt === target ? "text-yellow-400" : "text-rose-500";
+};
+
 const TextPrompt: Component<{
   prompt: string;
   userTypedText: string;
@@ -12,21 +23,9 @@ const TextPrompt: Component<{
     document.activeElement === document?.getElementById(HIDDEN_INPUT_ID),
   );
 
-  const getTextColor = (attempt: string | null, target: string) => {
-    if (attempt === null) {
-      return "text-gray-400";
-    }
-
-    console.assert(
-      attempt.length === 1 && target.length === 1,
-      `should only be comparing single characters -- attempt: ${attempt} target: ${target}`,
-    );
-    return attempt === target ? "text-yellow-400" : "text-rose-500";
-  };
-
   return (
     <div class="relative p-8">
-      <div class="flex flex-wrap gap-1">
+      <div class={`flex flex-wrap gap-1 ${!isFocused() && "blur-sm"}`}>
         <Index each={props.prompt.split("")}>
           {(char, index) => {
             const textColor = () =>
@@ -59,7 +58,7 @@ const TextPrompt: Component<{
       />
 
       <Show when={!isFocused()}>
-        <div class="absolute z-0 inset-0 pt-10 flex flex-col items-center text-gray-300 bg-slate-900/90">
+        <div class="absolute z-0 inset-0 pt-10 rounded-lg flex flex-col items-center text-gray-300 bg-slate-900/90">
           <PauseIcon class="size-1/4" />
           <span class="relative">
             <span class="text-5xl text-center">Paused</span>
