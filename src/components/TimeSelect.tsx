@@ -25,9 +25,9 @@ const TimeSelect: Component<{
         }
       >
         <For each={[15, 30, 45, 60]}>
-          {(timeLimit, _i) => (
+          {(timeLimit, _index) => (
             <ToggleGroup.Item
-              class="size-8 rounded hover:bg-yellow-600 hover:opacity-50 ui-pressed:bg-yellow-600"
+              class="size-8 rounded hover:bg-yellow-600/50 ui-pressed:bg-yellow-600"
               value={timeLimit.toString()}
             >
               {timeLimit}

@@ -1,6 +1,6 @@
 import { Component, createSignal, Index, Show } from "solid-js";
 
-const HIDDEN_INPUT_ID = "textInput";
+const HIDDEN_INPUT_ID = "hidden-input";
 
 const TextPrompt: Component<{
   prompt: string;
@@ -15,6 +15,11 @@ const TextPrompt: Component<{
     if (attempt === null) {
       return "text-gray-400";
     }
+
+    console.assert(
+      attempt.length === 1 && target.length === 1,
+      `should only be comparing single characters -- attempt: ${attempt} target: ${target}`,
+    );
     return attempt === target ? "text-yellow-400" : "text-rose-500";
   };
 
