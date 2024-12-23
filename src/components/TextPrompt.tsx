@@ -24,7 +24,7 @@ const TextPrompt: Component<{
   );
 
   return (
-    <div class="relative p-8">
+    <div class="relative p-8 pb-40 w-full">
       <div class={`flex flex-wrap gap-1 ${!isFocused() && "blur-sm"}`}>
         <Index each={props.prompt.split("")}>
           {(char, index) => {
@@ -33,7 +33,7 @@ const TextPrompt: Component<{
             const isNextChar = () => index === props.userTypedText.length;
 
             return (
-              <div class="relative text-5xl">
+              <div class="relative text-4xl">
                 <span class={`whitespace-pre ${textColor()}`}>{char()}</span>
                 <Show when={isFocused() && isNextChar()}>
                   <span class="absolute right-full animate-blink text-yellow-400">
@@ -49,7 +49,7 @@ const TextPrompt: Component<{
       <input
         id={HIDDEN_INPUT_ID}
         class="absolute z-50 inset-0 size-full opacity-0"
-        type="text"
+        type="textArea"
         autocomplete="off"
         value={props.userTypedText}
         onInput={(e: InputEvent) => props.handleInput(e)}
