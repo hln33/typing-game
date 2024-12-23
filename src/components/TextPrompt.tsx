@@ -15,7 +15,7 @@ const TextPrompt: Component<{
   );
 
   return (
-    <div class="relative p-8 pb-40 w-full">
+    <section class="relative p-8 pb-40 w-full">
       <div class={`flex flex-wrap gap-1 ${!isFocused() && "blur-sm"}`}>
         <Index each={props.prompt.split("")}>
           {(char, index) => {
@@ -50,7 +50,7 @@ const TextPrompt: Component<{
           </span>
         </div>
       </Show>
-    </div>
+    </section>
   );
 };
 

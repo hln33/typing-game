@@ -9,7 +9,7 @@ const TextColor = {
 
 const getTextColor = (attempt: string | null, target: string) => {
   if (attempt === null) {
-    return "text-gray-400";
+    return TextColor["inactive"];
   }
   console.assert(
     attempt.length === 1 && target.length === 1,
