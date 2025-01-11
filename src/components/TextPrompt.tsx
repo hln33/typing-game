@@ -15,7 +15,7 @@ const TextPrompt: Component<{
   );
 
   return (
-    <section class="relative p-8 pb-40 w-full">
+    <section class="relative w-full p-8 pb-40">
       <div class={`flex flex-wrap gap-1 ${!isFocused() && "blur-sm"}`}>
         <Index each={props.prompt.split("")}>
           {(char, index) => {
@@ -33,7 +33,7 @@ const TextPrompt: Component<{
 
       <textarea
         id={HIDDEN_INPUT_ID}
-        class="absolute z-50 inset-0 size-full opacity-0"
+        class="absolute inset-0 z-50 size-full opacity-0"
         autocomplete="off"
         value={props.userTypedText}
         onInput={(e: InputEvent) => props.handleInput(e)}
@@ -42,10 +42,10 @@ const TextPrompt: Component<{
       />
 
       <Show when={!isFocused()}>
-        <div class="absolute z-0 inset-0 pt-10 rounded-lg flex flex-col items-center text-gray-300 bg-slate-900/90">
+        <div class="absolute inset-0 z-0 flex flex-col items-center rounded-lg bg-slate-900/90 pt-10 text-gray-300">
           <PauseIcon class="size-1/4" />
           <span class="relative">
-            <span class="text-5xl text-center">Paused</span>
+            <span class="text-center text-5xl">Paused</span>
             <span class="absolute bottom-0 left-full text-5xl">...</span>
           </span>
         </div>

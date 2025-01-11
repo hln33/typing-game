@@ -26,10 +26,10 @@ const Summary: Component<{
         <Dialog.Overlay class="fixed inset-0 z-50 bg-black opacity-50" />
         <div class="fixed inset-0 z-50 flex items-center justify-center">
           <Dialog.Content
-            class="max-w-fit p-10 rounded-lg bg-slate-800 text-white"
+            class="max-w-fit rounded-lg bg-slate-800 p-10 text-white"
             onInteractOutside={props.onInteractOutside}
           >
-            <div class="flex justify-between mb-6">
+            <div class="mb-6 flex justify-between">
               <Dialog.Title class="font-bold">Summary</Dialog.Title>
               <Dialog.CloseButton>X</Dialog.CloseButton>
             </div>

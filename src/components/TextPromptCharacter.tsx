@@ -40,7 +40,7 @@ const TextPromptCharacter: Component<{
         <Show when={props.showCaret}>
           <span
             id="caret"
-            class="absolute bottom-0 right-full animate-blink text-yellow-400"
+            class="animate-blink absolute bottom-0 right-full text-yellow-400"
           >
             |
           </span>

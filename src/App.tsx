@@ -6,7 +6,7 @@ import Summary from "./components/Summary";
 import TimeSelect from "./components/TimeSelect";
 
 const DEFAULT_TIME_LIMIT = 15;
-const DUMMY_PROMPT = "p\nprint('hello world!')";
+const DUMMY_PROMPT = "p\t\nprint('hello world!')";
 
 const App: Component = () => {
   const [typedText, setTypedText] = createSignal("");
@@ -40,12 +40,12 @@ const App: Component = () => {
   };
 
   return (
-    <div class="bg-slate-800 px-40 border-2 text-center min-h-screen text-white">
+    <div class="min-h-screen border-2 bg-slate-800 px-40 text-center text-white">
       <header>
         <h1 class="py-16 text-6xl">Code Type</h1>
       </header>
 
-      <main class="py-16 flex flex-col gap-4 items-center justify-center">
+      <main class="flex flex-col items-center justify-center gap-4 py-16">
         <Summary
           visible={summaryVisible()}
           onInteractOutside={() => handleSummaryClose()}
