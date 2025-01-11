@@ -3,7 +3,8 @@ import { createSignal, type Component } from "solid-js";
 import TextPrompt from "./components/TextPrompt";
 import Timer from "./components/Timer";
 import Summary from "./components/Summary";
-import TimeSelect from "./components/TimeSelect";
+import SelectTime from "./components/SelectTime";
+import SelectProgrammingLanguage from "./components/SelectProgrammingLanguage";
 
 const DEFAULT_TIME_LIMIT = 15;
 const DUMMY_PROMPT = "p\t\nprint('hello world!')";
@@ -55,7 +56,8 @@ const App: Component = () => {
           secondsTaken={60}
         />
 
-        <TimeSelect
+        <SelectProgrammingLanguage />
+        <SelectTime
           class="mb-8"
           selectedTimeLimit={timeLimit()}
           onTimeLimitChange={handleTimeLimitChange}

@@ -3,7 +3,7 @@ import { ToggleGroup } from "@kobalte/core/toggle-group";
 
 const DEFAULT_TIME_LIMIT = 30;
 
-const TimeSelect: Component<{
+const SelectTime: Component<{
   class?: string;
   selectedTimeLimit: number;
   onTimeLimitChange: (timeLimit: number) => void;
@@ -39,4 +39,4 @@ const TimeSelect: Component<{
   );
 };
 
-export default TimeSelect;
+export default SelectTime;
