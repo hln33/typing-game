@@ -7,7 +7,7 @@ import SelectTime from "./components/SelectTime";
 import SelectProgrammingLanguage from "./components/SelectProgrammingLanguage";
 
 const DEFAULT_TIME_LIMIT = 15;
-const DUMMY_PROMPT = "p\t\nprint('hello world!')";
+const DUMMY_PROMPT = "p\nprint('hello world!')";
 
 const App: Component = () => {
   const [typedText, setTypedText] = createSignal("");

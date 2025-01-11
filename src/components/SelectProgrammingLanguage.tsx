@@ -14,12 +14,12 @@ const SelectProgrammingLanguage = () => {
         </Select.Item>
       )}
     >
-      <Select.Trigger class="w-80 rounded-md border border-slate-600 bg-slate-900 px-5">
+      <Select.Trigger class="w-80 rounded-md border border-slate-600 bg-slate-900 p-3 transition-colors hover:border-slate-400">
         <Select.Value<string>>{(state) => state.selectedOption()}</Select.Value>
       </Select.Trigger>
 
       <Select.Portal>
-        <Select.Content class="bg-slate-900">
+        <Select.Content class="animate-content-show bg-slate-900">
           <Select.Listbox />
         </Select.Content>
       </Select.Portal>
