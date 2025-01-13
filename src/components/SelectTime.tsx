@@ -4,16 +4,12 @@ import { ToggleGroup } from "@kobalte/core/toggle-group";
 const DEFAULT_TIME_LIMIT = 30;
 
 const SelectTime: Component<{
-  class?: string;
   selectedTimeLimit: number;
   onTimeLimitChange: (timeLimit: number) => void;
 }> = (props) => {
   return (
-    <section
-      id="time-settings"
-      class={props.class}
-    >
-      <h2 class="text-xl">Time Limit:</h2>
+    <div class="flex flex-col items-center">
+      <h2 class="text-xl">Time Limit</h2>
 
       <ToggleGroup
         class="flex gap-2 p-4"
@@ -35,7 +31,7 @@ const SelectTime: Component<{
           )}
         </For>
       </ToggleGroup>
-    </section>
+    </div>
   );
 };
 

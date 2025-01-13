@@ -5,11 +5,14 @@ import Timer from "./components/Timer";
 import Summary from "./components/Summary";
 import SelectTime from "./components/SelectTime";
 import SelectProgrammingLanguage from "./components/SelectProgrammingLanguage";
+import { ProgrammingLanguage } from "./types/programmingLanguages";
 
 const DEFAULT_TIME_LIMIT = 15;
 const DUMMY_PROMPT = "p\nprint('hello world!')";
 
 const App: Component = () => {
+  const [programmingLanguage, setProgrammingLanguage] =
+    createSignal<ProgrammingLanguage>(ProgrammingLanguage.Python);
   const [typedText, setTypedText] = createSignal("");
   const [active, setActive] = createSignal(false);
   const [timeLimit, setTimeLimit] = createSignal(DEFAULT_TIME_LIMIT);
@@ -56,12 +59,19 @@ const App: Component = () => {
           secondsTaken={60}
         />
 
-        <SelectProgrammingLanguage />
-        <SelectTime
-          class="mb-8"
-          selectedTimeLimit={timeLimit()}
-          onTimeLimitChange={handleTimeLimitChange}
-        />
+        <section
+          id="settings"
+          class="mb-10 space-y-4"
+        >
+          <SelectProgrammingLanguage
+            selectedLanguage={programmingLanguage}
+            setSelectedLanguage={setProgrammingLanguage}
+          />
+          <SelectTime
+            selectedTimeLimit={timeLimit()}
+            onTimeLimitChange={handleTimeLimitChange}
+          />
+        </section>
 
         <Timer
           secondsLeft={timeLimit()}
