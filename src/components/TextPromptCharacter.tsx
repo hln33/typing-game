@@ -23,11 +23,11 @@ const TextPromptCharacter: Component<{
   targetChar: string;
   showCaret: boolean;
 }> = (props) => {
-  const textColor = () => getTextColor(props.typedChar, props.targetChar);
-
   return (
     <>
-      <div class={`relative text-3xl ${textColor()}`}>
+      <div
+        class={`relative text-3xl ${getTextColor(props.typedChar, props.targetChar)}`}
+      >
         <Switch fallback={<span>{props.targetChar}</span>}>
           <Match when={props.targetChar === "\n"}>
             <NewLineIcon />

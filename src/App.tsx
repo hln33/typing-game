@@ -73,6 +73,8 @@ const App: Component = () => {
           prompt={DUMMY_PROMPT}
           userTypedText={typedText()}
           handleInput={handleTextInput}
+          isActive={active()}
+          setActive={setActive}
         />
       </main>
     </div>

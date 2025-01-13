@@ -1,4 +1,4 @@
-import { Component, createSignal, Index, Show } from "solid-js";
+import { Component, Index, Setter, Show } from "solid-js";
 import PauseIcon from "~icons/solar/pause-bold";
 
 import TextPromptCharacter from "./TextPromptCharacter";
@@ -9,14 +9,12 @@ const TextPrompt: Component<{
   prompt: string;
   userTypedText: string;
   handleInput: (event: InputEvent) => void;
+  isActive: boolean;
+  setActive: Setter<boolean>;
 }> = (props) => {
-  const [isFocused, setIsFocused] = createSignal<boolean>(
-    document.activeElement === document?.getElementById(HIDDEN_INPUT_ID),
-  );
-
   return (
     <section class="relative w-full p-8 pb-40">
-      <div class={`flex flex-wrap gap-1 ${!isFocused() && "blur-sm"}`}>
+      <div class={`flex flex-wrap gap-1 ${!props.isActive && "blur-sm"}`}>
         <Index each={props.prompt.split("")}>
           {(char, index) => {
             const isNextChar = () => index === props.userTypedText.length;
@@ -24,7 +22,7 @@ const TextPrompt: Component<{
               <TextPromptCharacter
                 targetChar={char()}
                 typedChar={props.userTypedText.at(index) ?? null}
-                showCaret={isFocused() && isNextChar()}
+                showCaret={props.isActive && isNextChar()}
               />
             );
           }}
@@ -37,11 +35,11 @@ const TextPrompt: Component<{
         autocomplete="off"
         value={props.userTypedText}
         onInput={(e: InputEvent) => props.handleInput(e)}
-        onFocusIn={() => setIsFocused(true)}
-        onFocusOut={() => setIsFocused(false)}
+        onFocusIn={() => props.setActive(true)}
+        onFocusOut={() => props.setActive(false)}
       />
 
-      <Show when={!isFocused()}>
+      <Show when={!props.isActive}>
         <div class="absolute inset-0 z-0 flex flex-col items-center rounded-lg bg-slate-900/90 pt-10 text-gray-300">
           <PauseIcon class="size-1/4" />
           <span class="relative">
