@@ -1,4 +1,4 @@
-import { Accessor, Component, Setter } from "solid-js";
+import { Accessor, Component } from "solid-js";
 import { Select } from "@kobalte/core/select";
 
 import { ProgrammingLanguage } from "../types/programmingLanguages";
@@ -35,7 +35,7 @@ const options: Option[] = [
 
 const SelectProgrammingLanguage: Component<{
   selectedLanguage: Accessor<ProgrammingLanguage>;
-  setSelectedLanguage: Setter<ProgrammingLanguage>;
+  handleLanguageChange: (newLanguage: ProgrammingLanguage) => void;
 }> = (props) => {
   const value = () => ({
     value: props.selectedLanguage(),
@@ -50,7 +50,7 @@ const SelectProgrammingLanguage: Component<{
       <Select
         class="p-4"
         value={value()}
-        onChange={(value) => props.setSelectedLanguage(value!.value)}
+        onChange={(value) => props.handleLanguageChange(value!.value)}
         options={options}
         optionValue="value"
         optionTextValue="label"

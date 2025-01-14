@@ -9,21 +9,67 @@ import { ProgrammingLanguage } from "./types/programmingLanguages";
 
 const DEFAULT_TIME_LIMIT = 15;
 const PYTHON_PROMPT_LIST = [
-  "a\na\na\na\na\na\na\na",
   "hello",
   "dict_example = {'a': 1, 'b': 2}\nprint(dict_example.get('a'))",
   's = "hello world"\nprint(s[::-1])',
   "print([i for i in range(10) if i % 2 == 0])",
 ];
+const JAVASCRIPT_PROMPT_LIST = [
+  "console.log('hello world!');",
+  "const add = (a, b) => a + b;",
+  "const arr = [1, 2, 3, 4, 5];",
+  "const factorial = n => n === 0 ? 1 : n * factorial(n - 1);",
+  "const nums = [1, 2, 3, 4];\nconst squared = nums.map(x => x * x);",
+  "const person = {name: 'Alice', age: 30};",
+  "const str = 'hello';",
+  "const isEven = num => num % 2 === 0;",
+  "const numbers = [10, 20, 30];\nnumbers.forEach(num => console.log(num * 2));",
+  "const obj = {x: 10, y: 20};.keys(obj));",
+  "const nums = [1, 2, 3, 4, 5];\nconst evens = nums.filter(x => x % 2 === 0);",
+  "const nums = [1, 2, 3, 4, 5];\nconst doubled = nums.map(x => x * 2);",
+  "const nums = [1, 2, 3, 4, 5];\nconst sum = nums.reduce((acc, curr) => acc + curr, 0);",
+  "const str = 'hello world';\nconst reversed = str.split('').reverse().join('');",
+  "const arr = [1, 2, 3, 4];ludes(3));",
+  "const numbers = [10, 20, 30];\nconst total = numbers.reduce((acc, num) => acc + num, 0);",
+  "const x = 5;\nconst y = 10;g(x * y);",
+  "const greet = name => `Hello, ${name}!`;reet('Alice'));",
+  "const numbers = [10, 20, 30];\nconst product = numbers.reduce((acc, num) => acc * num, 1);",
+  "const nums = [1, 2, 3, 4, 5];\nconst squared = nums.map(x => x ** 2);",
+  "const numbers = [1, 2, 3, 4, 5];th.max(...numbers));",
+];
 
 const App: Component = () => {
   const [programmingLanguage, setProgrammingLanguage] =
     createSignal<ProgrammingLanguage>(ProgrammingLanguage.Python);
+  const [prompt, setPrompt] = createSignal(PYTHON_PROMPT_LIST[0]);
   const [typedText, setTypedText] = createSignal("");
   const [active, setActive] = createSignal(false);
   const [timeLimit, setTimeLimit] = createSignal(DEFAULT_TIME_LIMIT);
   const [summaryVisible, setSummaryVisible] = createSignal(false);
-  const [prompt, setPrompt] = createSignal(PYTHON_PROMPT_LIST[0]);
+
+  const resetPrompt = (): void => {
+    switch (programmingLanguage()) {
+      case ProgrammingLanguage.Python:
+        setPrompt(PYTHON_PROMPT_LIST[0]);
+        break;
+      case ProgrammingLanguage.JavaScript:
+        setPrompt(JAVASCRIPT_PROMPT_LIST[0]);
+        break;
+      default:
+        console.error("Unknown Language Selected:", programmingLanguage());
+    }
+  };
+
+  const handleTimeLimitChange = (newTimeLimit: number) => {
+    setTimeLimit(newTimeLimit);
+    setTypedText("");
+    setActive(false);
+  };
+  const handleLanguageChange = (newLanguage: ProgrammingLanguage) => {
+    setProgrammingLanguage(newLanguage);
+    setTimeLimit(DEFAULT_TIME_LIMIT);
+    resetPrompt();
+  };
 
   const handleTextInput = (event: InputEvent) => {
     if (!active()) {
@@ -32,31 +78,24 @@ const App: Component = () => {
     setTypedText((event.target as HTMLInputElement).value);
   };
 
-  const handleTimeLimitChange = (newTimeLimit: number) => {
-    setTimeLimit(newTimeLimit);
-    setTypedText("");
-    setActive(false);
+  const handlePromptComplete = () => {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    const randomIndex = Math.floor(
+      Math.random() * Math.floor(PYTHON_PROMPT_LIST.length - 1),
+    );
+    setPrompt((prev) => prev + "\n" + PYTHON_PROMPT_LIST[randomIndex]);
   };
 
   const handleGameDone = () => {
     setActive(false);
     setSummaryVisible(true);
   };
-
   const handleSummaryClose = () => {
+    resetPrompt();
+
     setSummaryVisible(false);
-    setPrompt(PYTHON_PROMPT_LIST[0]);
     setTypedText("");
     setTimeLimit(DEFAULT_TIME_LIMIT);
-  };
-
-  const handlePromptComplete = () => {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    const randomIndex = Math.floor(
-      Math.random() * Math.floor(PYTHON_PROMPT_LIST.length - 1),
-    );
-
-    setPrompt((prev) => prev + "\n" + PYTHON_PROMPT_LIST[randomIndex]);
   };
 
   return (
@@ -68,8 +107,8 @@ const App: Component = () => {
       <main class="flex flex-col items-center justify-center gap-4 py-16">
         <Summary
           visible={summaryVisible()}
-          onInteractOutside={() => handleSummaryClose()}
-          onCloseButtonClick={() => handleSummaryClose()}
+          onInteractOutside={(_event) => handleSummaryClose()}
+          onCloseButtonClick={handleSummaryClose}
           typedText={typedText()}
           prompt={prompt()}
           secondsTaken={60}
@@ -81,7 +120,7 @@ const App: Component = () => {
         >
           <SelectProgrammingLanguage
             selectedLanguage={programmingLanguage}
-            setSelectedLanguage={setProgrammingLanguage}
+            handleLanguageChange={handleLanguageChange}
           />
           <SelectTime
             selectedTimeLimit={timeLimit()}
