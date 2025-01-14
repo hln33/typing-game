@@ -8,7 +8,13 @@ import SelectProgrammingLanguage from "./components/SelectProgrammingLanguage";
 import { ProgrammingLanguage } from "./types/programmingLanguages";
 
 const DEFAULT_TIME_LIMIT = 15;
-const DUMMY_PROMPT = "p\nprint('hello world!')";
+const PYTHON_PROMPT_LIST = [
+  "a\na\na\na\na\na\na\na",
+  "hello",
+  "dict_example = {'a': 1, 'b': 2}\nprint(dict_example.get('a'))",
+  's = "hello world"\nprint(s[::-1])',
+  "print([i for i in range(10) if i % 2 == 0])",
+];
 
 const App: Component = () => {
   const [programmingLanguage, setProgrammingLanguage] =
@@ -17,6 +23,7 @@ const App: Component = () => {
   const [active, setActive] = createSignal(false);
   const [timeLimit, setTimeLimit] = createSignal(DEFAULT_TIME_LIMIT);
   const [summaryVisible, setSummaryVisible] = createSignal(false);
+  const [prompt, setPrompt] = createSignal(PYTHON_PROMPT_LIST[0]);
 
   const handleTextInput = (event: InputEvent) => {
     if (!active()) {
@@ -38,9 +45,18 @@ const App: Component = () => {
 
   const handleSummaryClose = () => {
     setSummaryVisible(false);
+    setPrompt(PYTHON_PROMPT_LIST[0]);
     setTypedText("");
-    setActive(false);
     setTimeLimit(DEFAULT_TIME_LIMIT);
+  };
+
+  const handlePromptComplete = () => {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    const randomIndex = Math.floor(
+      Math.random() * Math.floor(PYTHON_PROMPT_LIST.length - 1),
+    );
+
+    setPrompt((prev) => prev + "\n" + PYTHON_PROMPT_LIST[randomIndex]);
   };
 
   return (
@@ -55,7 +71,7 @@ const App: Component = () => {
           onInteractOutside={() => handleSummaryClose()}
           onCloseButtonClick={() => handleSummaryClose()}
           typedText={typedText()}
-          prompt={DUMMY_PROMPT}
+          prompt={prompt()}
           secondsTaken={60}
         />
 
@@ -80,11 +96,12 @@ const App: Component = () => {
           setDone={handleGameDone}
         />
         <TextPrompt
-          prompt={DUMMY_PROMPT}
-          userTypedText={typedText()}
-          handleInput={handleTextInput}
-          isActive={active()}
+          prompt={prompt}
+          isActive={active}
           setActive={setActive}
+          userTypedText={typedText}
+          handleInput={handleTextInput}
+          handlePromptComplete={handlePromptComplete}
         />
       </main>
     </div>

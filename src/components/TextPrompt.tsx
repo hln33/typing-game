@@ -1,4 +1,11 @@
-import { Component, Index, Setter, Show } from "solid-js";
+import {
+  Accessor,
+  Component,
+  createEffect,
+  Index,
+  Setter,
+  Show,
+} from "solid-js";
 import PauseIcon from "~icons/solar/pause-bold";
 
 import TextPromptCharacter from "./TextPromptCharacter";
@@ -6,23 +13,30 @@ import TextPromptCharacter from "./TextPromptCharacter";
 const HIDDEN_INPUT_ID = "hidden-input";
 
 const TextPrompt: Component<{
-  prompt: string;
-  userTypedText: string;
+  prompt: Accessor<string>;
+  userTypedText: Accessor<string>;
   handleInput: (event: InputEvent) => void;
-  isActive: boolean;
+  handlePromptComplete: () => void;
+  isActive: Accessor<boolean>;
   setActive: Setter<boolean>;
 }> = (props) => {
+  createEffect(() => {
+    if (props.userTypedText().length === props.prompt().length) {
+      props.handlePromptComplete();
+    }
+  });
+
   return (
     <section class="relative w-full p-8 pb-40">
-      <div class={`flex flex-wrap gap-1 ${!props.isActive && "blur-sm"}`}>
-        <Index each={props.prompt.split("")}>
+      <div class={`flex flex-wrap gap-1 ${!props.isActive() && "blur-sm"}`}>
+        <Index each={props.prompt().split("")}>
           {(char, index) => {
-            const isNextChar = () => index === props.userTypedText.length;
+            const isNextChar = () => index === props.userTypedText().length;
             return (
               <TextPromptCharacter
                 targetChar={char()}
-                typedChar={props.userTypedText.at(index) ?? null}
-                showCaret={props.isActive && isNextChar()}
+                typedChar={props.userTypedText().at(index) ?? null}
+                showCaret={props.isActive() && isNextChar()}
               />
             );
           }}
@@ -33,13 +47,13 @@ const TextPrompt: Component<{
         id={HIDDEN_INPUT_ID}
         class="absolute inset-0 z-50 size-full opacity-0"
         autocomplete="off"
-        value={props.userTypedText}
+        value={props.userTypedText()}
         onInput={(e: InputEvent) => props.handleInput(e)}
         onFocusIn={() => props.setActive(true)}
         onFocusOut={() => props.setActive(false)}
       />
 
-      <Show when={!props.isActive}>
+      <Show when={!props.isActive()}>
         <div class="absolute inset-0 z-0 flex flex-col items-center rounded-lg bg-slate-900/90 pt-10 text-gray-300">
           <PauseIcon class="size-1/4" />
           <span class="relative">
