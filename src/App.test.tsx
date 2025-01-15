@@ -6,7 +6,7 @@ import App from "./App";
 
 const user = userEvent.setup();
 
-test("pauses when input is not focused", async () => {
+test("does not pause when input is focused", async () => {
   render(() => <App />);
 
   await user.click(screen.getByTestId("prompt-input"));
