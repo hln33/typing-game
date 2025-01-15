@@ -27,7 +27,19 @@ const TextPrompt: Component<{
   });
 
   return (
-    <section class="relative w-full p-8 pb-40">
+    <section
+      class="relative w-full p-8 pb-40"
+      data-testid="prompt-input"
+      tabIndex="1"
+      onFocusIn={() => {
+        props.setActive(true);
+        document.getElementById(HIDDEN_INPUT_ID)?.focus();
+      }}
+      onFocusOut={() => {
+        props.setActive(false);
+        document.getElementById(HIDDEN_INPUT_ID)?.blur();
+      }}
+    >
       <div class={`flex flex-wrap gap-1 ${!props.isActive() && "blur-sm"}`}>
         <Index each={props.prompt().split("")}>
           {(char, index) => {
@@ -45,21 +57,19 @@ const TextPrompt: Component<{
 
       <textarea
         id={HIDDEN_INPUT_ID}
-        class="absolute inset-0 z-50 size-full opacity-0"
+        class="opacity-0"
         autocomplete="off"
         value={props.userTypedText()}
         onInput={(e: InputEvent) => props.handleInput(e)}
-        onFocusIn={() => props.setActive(true)}
-        onFocusOut={() => props.setActive(false)}
       />
 
       <Show when={!props.isActive()}>
         <div class="absolute inset-0 z-0 flex flex-col items-center rounded-lg bg-slate-900/90 pt-10 text-gray-300">
           <PauseIcon class="size-1/4" />
-          <span class="relative">
+          <label class="relative">
             <span class="text-center text-5xl">Paused</span>
             <span class="absolute bottom-0 left-full text-5xl">...</span>
-          </span>
+          </label>
         </div>
       </Show>
     </section>

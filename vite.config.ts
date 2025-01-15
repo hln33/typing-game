@@ -11,6 +11,7 @@ export default defineConfig({
       compiler: "solid",
     }),
   ],
+  // resolve: { alias: { "~icons": "/node_modules/@iconify" } },
   server: {
     port: 3000,
   },

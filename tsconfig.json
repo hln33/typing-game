@@ -10,7 +10,8 @@
     "jsxImportSource": "solid-js",
     "types": [
       "vite/client",
-      "unplugin-icons/types/solid"
+      "unplugin-icons/types/solid",
+      "@testing-library/jest-dom"
     ],
     "noEmit": true,
     "isolatedModules": true
