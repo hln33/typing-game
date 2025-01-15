@@ -1,7 +1,10 @@
 import { Accessor, Component } from "solid-js";
 import { Select } from "@kobalte/core/select";
 
-import { ProgrammingLanguage } from "../types/programmingLanguages";
+import {
+  ProgrammingLanguage,
+  ProgrammingLanguageLabels,
+} from "../types/programmingLanguages";
 
 interface Option {
   value: ProgrammingLanguage;
@@ -9,26 +12,20 @@ interface Option {
   disabled: boolean;
 }
 
-const Labels = {
-  [ProgrammingLanguage.Python]: "Python",
-  [ProgrammingLanguage.JavaScript]: "JavaScript",
-  [ProgrammingLanguage.Ruby]: "Ruby",
-} as const;
-
 const options: Option[] = [
   {
     value: ProgrammingLanguage.Python,
-    label: Labels[ProgrammingLanguage.Python],
+    label: ProgrammingLanguageLabels[ProgrammingLanguage.Python],
     disabled: false,
   },
   {
     value: ProgrammingLanguage.JavaScript,
-    label: Labels[ProgrammingLanguage.JavaScript],
+    label: ProgrammingLanguageLabels[ProgrammingLanguage.JavaScript],
     disabled: false,
   },
   {
     value: ProgrammingLanguage.Ruby,
-    label: Labels[ProgrammingLanguage.Ruby],
+    label: ProgrammingLanguageLabels[ProgrammingLanguage.Ruby],
     disabled: false,
   },
 ];
@@ -39,7 +36,7 @@ const SelectProgrammingLanguage: Component<{
 }> = (props) => {
   const value = () => ({
     value: props.selectedLanguage(),
-    label: Labels[props.selectedLanguage()],
+    label: ProgrammingLanguageLabels[props.selectedLanguage()],
     disabled: false,
   });
 

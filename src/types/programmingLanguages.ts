@@ -3,3 +3,9 @@ export const enum ProgrammingLanguage {
   JavaScript = "javascript",
   Ruby = "ruby",
 }
+
+export const ProgrammingLanguageLabels = {
+  [ProgrammingLanguage.Python]: "Python",
+  [ProgrammingLanguage.JavaScript]: "JavaScript",
+  [ProgrammingLanguage.Ruby]: "Ruby",
+} as const;

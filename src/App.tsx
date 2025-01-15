@@ -32,7 +32,7 @@ const JAVASCRIPT_PROMPT_LIST = [
   "const arr = [1, 2, 3, 4];ludes(3));",
   "const numbers = [10, 20, 30];\nconst total = numbers.reduce((acc, num) => acc + num, 0);",
   "const x = 5;\nconst y = 10;g(x * y);",
-  "const greet = name => `Hello, ${name}!`;reet('Alice'));",
+  "const greet = name => `Hello, ${name}!`;greet('Alice'));",
   "const numbers = [10, 20, 30];\nconst product = numbers.reduce((acc, num) => acc * num, 1);",
   "const nums = [1, 2, 3, 4, 5];\nconst squared = nums.map(x => x ** 2);",
   "const numbers = [1, 2, 3, 4, 5];th.max(...numbers));",
