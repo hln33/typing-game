@@ -24,29 +24,3 @@ code {
 .animate-blink {
   animation: blink 1s step-start infinite;
 }
-
-@keyframes contentShow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.animate-content-show {
-  animation: contentShow 250ms ease-out;
-}
-
-/* @keyframes contentHide {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-}
-.animate-content-hide {
-  animation: contentHide 250ms ease-in forwards;
-} */

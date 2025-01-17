@@ -6,6 +6,7 @@ import Summary from "./components/Summary";
 import SelectTime from "./components/SelectTime";
 import SelectProgrammingLanguage from "./components/SelectProgrammingLanguage";
 import { ProgrammingLanguage } from "./types/programmingLanguages";
+import RestartButton from "./components/RestartButton";
 
 const DEFAULT_TIME_LIMIT = 15;
 const PYTHON_PROMPT_LIST = [
@@ -142,6 +143,7 @@ const App: Component = () => {
           handleInput={handleTextInput}
           handlePromptComplete={handlePromptComplete}
         />
+        <RestartButton />
       </main>
     </div>
   );
