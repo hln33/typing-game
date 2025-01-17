@@ -41,7 +41,7 @@ const Timer: Component<{
     return `${minutes}:${leadingZero}${seconds}`;
   };
 
-  return <p>{formattedTime()}</p>;
+  return <p class="text-2xl">{formattedTime()}</p>;
 };
 
 export default Timer;
