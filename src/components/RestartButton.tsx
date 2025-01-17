@@ -4,7 +4,7 @@ import RestartIcon from "~icons/solar/restart-bold?width=24px&height=24px";
 
 const RestartButton: Component<{ onRestart: () => void }> = (props) => {
   return (
-    <Tooltip>
+    <Tooltip openDelay={100}>
       <Tooltip.Trigger onClick={() => props.onRestart()}>
         <RestartIcon />
       </Tooltip.Trigger>
