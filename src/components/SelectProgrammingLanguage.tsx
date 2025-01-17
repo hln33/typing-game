@@ -68,7 +68,7 @@ const SelectProgrammingLanguage: Component<{
         </Select.Trigger>
 
         <Select.Portal>
-          <Select.Content class="animate-content-show -top-1 border border-slate-600 bg-slate-900">
+          <Select.Content class="animate-content-hide ui-expanded:animate-content-show -top-1 border border-slate-600 bg-slate-900">
             <Select.Listbox class="p-2" />
           </Select.Content>
         </Select.Portal>
