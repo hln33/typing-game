@@ -56,7 +56,7 @@ describe("<TextPrompt />", () => {
     expect(queryByText("Paused")).not.toBeNull();
   });
 
-  test("clicking on the element causes the game to become active", async () => {
+  test("clicking on the component causes the game to become active", async () => {
     const { prompt, typedText, active, setActive } = createTestSignals();
     setActive(false);
 

@@ -27,6 +27,7 @@ const TextPromptCharacter: Component<{
     <>
       <div
         class={`relative text-3xl ${getTextColor(props.typedChar, props.targetChar)}`}
+        data-testid="prompt-character"
       >
         <Switch fallback={<span>{props.targetChar}</span>}>
           <Match when={props.targetChar === "\n"}>
