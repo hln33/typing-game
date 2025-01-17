@@ -22,5 +22,5 @@ code {
   }
 }
 .animate-blink {
-  animation: blink 1s step-start infinite;
+  animation: blink 0.5s step-start infinite;
 }
