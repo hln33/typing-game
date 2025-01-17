@@ -7,12 +7,12 @@ export default {
     extend: {
       keyframes: {
         contentShow: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          'from': { opacity: '0' },
+          'to': { opacity: '1' },
         },
         contentHide: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          'from': { opacity: '1' },
+          'to': { opacity: '0' },
         }
       },
       animation: {
