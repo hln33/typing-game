@@ -1,10 +1,11 @@
 import { Tooltip } from "@kobalte/core/tooltip";
+import { Component } from "solid-js";
 import RestartIcon from "~icons/solar/restart-bold?width=24px&height=24px";
 
-const RestartButton = () => {
+const RestartButton: Component<{ onRestart: () => void }> = (props) => {
   return (
     <Tooltip>
-      <Tooltip.Trigger>
+      <Tooltip.Trigger onClick={() => props.onRestart()}>
         <RestartIcon />
       </Tooltip.Trigger>
 

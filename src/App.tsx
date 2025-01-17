@@ -61,15 +61,25 @@ const App: Component = () => {
     }
   };
 
-  const handleTimeLimitChange = (newTimeLimit: number) => {
-    setTimeLimit(newTimeLimit);
-    setTypedText("");
+  const restartGame = () => {
+    resetPrompt();
+
     setActive(false);
+    setSummaryVisible(false);
+    setTypedText("");
+    setTimeLimit(DEFAULT_TIME_LIMIT);
   };
+
+  const handleTimeLimitChange = (newTimeLimit: number) => {
+    restartGame();
+    setTimeLimit(newTimeLimit);
+  };
+
   const handleLanguageChange = (newLanguage: ProgrammingLanguage) => {
     setProgrammingLanguage(newLanguage);
     setTimeLimit(DEFAULT_TIME_LIMIT);
-    resetPrompt();
+
+    restartGame();
   };
 
   const handleTextInput = (event: InputEvent) => {
@@ -91,13 +101,6 @@ const App: Component = () => {
     setActive(false);
     setSummaryVisible(true);
   };
-  const handleSummaryClose = () => {
-    resetPrompt();
-
-    setSummaryVisible(false);
-    setTypedText("");
-    setTimeLimit(DEFAULT_TIME_LIMIT);
-  };
 
   return (
     <div class="min-h-screen border-2 bg-slate-800 px-40 text-center text-white">
@@ -108,8 +111,8 @@ const App: Component = () => {
       <main class="flex flex-col items-center justify-center gap-4 py-16">
         <Summary
           visible={summaryVisible()}
-          onInteractOutside={(_event) => handleSummaryClose()}
-          onCloseButtonClick={handleSummaryClose}
+          onInteractOutside={(_event) => restartGame()}
+          onCloseButtonClick={restartGame}
           typedText={typedText()}
           prompt={prompt()}
           secondsTaken={60}
@@ -143,7 +146,7 @@ const App: Component = () => {
           handleInput={handleTextInput}
           handlePromptComplete={handlePromptComplete}
         />
-        <RestartButton />
+        <RestartButton onRestart={restartGame} />
       </main>
     </div>
   );
