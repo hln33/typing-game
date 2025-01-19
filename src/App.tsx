@@ -68,6 +68,7 @@ const App: Component = () => {
   const restartGame = () => {
     resetPrompt();
 
+    setSummaryVisible(false);
     setGameState(
       produce((state) => {
         state.active = false;
@@ -75,7 +76,6 @@ const App: Component = () => {
         state.timeLimit = DEFAULT_TIME_LIMIT;
       }),
     );
-    setSummaryVisible(false);
   };
 
   const handleTimeLimitChange = (newTimeLimit: number) => {
