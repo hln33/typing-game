@@ -1,4 +1,5 @@
 import { createSignal, type Component } from "solid-js";
+import { createStore, produce } from "solid-js/store";
 
 import TextPrompt from "./components/TextPrompt";
 import Timer from "./components/Timer";
@@ -43,19 +44,21 @@ const JAVASCRIPT_PROMPT_LIST = [
 const App: Component = () => {
   const [programmingLanguage, setProgrammingLanguage] =
     createSignal<ProgrammingLanguage>(ProgrammingLanguage.Python);
-  const [prompt, setPrompt] = createSignal(PYTHON_PROMPT_LIST[0]);
-  const [typedText, setTypedText] = createSignal("");
-  const [active, setActive] = createSignal(false);
-  const [timeLimit, setTimeLimit] = createSignal(DEFAULT_TIME_LIMIT);
   const [summaryVisible, setSummaryVisible] = createSignal(false);
+  const [gameState, setGameState] = createStore({
+    active: false,
+    timeLimit: DEFAULT_TIME_LIMIT,
+    prompt: PYTHON_PROMPT_LIST[0],
+    typedText: "",
+  });
 
   const resetPrompt = (): void => {
     switch (programmingLanguage()) {
       case ProgrammingLanguage.Python:
-        setPrompt(PYTHON_PROMPT_LIST[0]);
+        setGameState("prompt", PYTHON_PROMPT_LIST[0]);
         break;
       case ProgrammingLanguage.JavaScript:
-        setPrompt(JAVASCRIPT_PROMPT_LIST[0]);
+        setGameState("prompt", JAVASCRIPT_PROMPT_LIST[0]);
         break;
       default:
         console.error("Unknown Language Selected:", programmingLanguage());
@@ -65,29 +68,33 @@ const App: Component = () => {
   const restartGame = () => {
     resetPrompt();
 
-    setActive(false);
+    setGameState(
+      produce((state) => {
+        state.active = false;
+        state.typedText = "";
+        state.timeLimit = DEFAULT_TIME_LIMIT;
+      }),
+    );
     setSummaryVisible(false);
-    setTypedText("");
-    setTimeLimit(DEFAULT_TIME_LIMIT);
   };
 
   const handleTimeLimitChange = (newTimeLimit: number) => {
     restartGame();
-    setTimeLimit(newTimeLimit);
+    setGameState("timeLimit", newTimeLimit);
   };
 
   const handleLanguageChange = (newLanguage: ProgrammingLanguage) => {
     setProgrammingLanguage(newLanguage);
-    setTimeLimit(DEFAULT_TIME_LIMIT);
-
     restartGame();
   };
 
   const handleTextInput = (event: InputEvent) => {
-    if (!active()) {
-      setActive(true);
+    if (!gameState.active) {
+      // setActive(true);
+      setGameState("active", true);
     }
-    setTypedText((event.target as HTMLInputElement).value);
+    // setTypedText((event.target as HTMLInputElement).value);
+    setGameState("typedText", (event.target as HTMLInputElement).value);
   };
 
   const handlePromptComplete = () => {
@@ -95,11 +102,14 @@ const App: Component = () => {
     const randomIndex = Math.floor(
       Math.random() * Math.floor(PYTHON_PROMPT_LIST.length - 1),
     );
-    setPrompt((prev) => prev + "\n" + PYTHON_PROMPT_LIST[randomIndex]);
+    setGameState(
+      "prompt",
+      (prev) => prev + "\n" + PYTHON_PROMPT_LIST[randomIndex],
+    );
   };
 
   const handleGameDone = () => {
-    setActive(false);
+    setGameState("active", false);
     setSummaryVisible(true);
   };
 
@@ -114,8 +124,8 @@ const App: Component = () => {
           visible={summaryVisible()}
           onInteractOutside={(_event) => restartGame()}
           onCloseButtonClick={restartGame}
-          typedText={typedText()}
-          prompt={prompt()}
+          typedText={gameState.typedText}
+          prompt={gameState.prompt}
           secondsTaken={60}
         />
 
@@ -129,22 +139,24 @@ const App: Component = () => {
           />
           <SelectSnippetCategory />
           <SelectTime
-            selectedTimeLimit={timeLimit()}
+            selectedTimeLimit={gameState.timeLimit}
             onTimeLimitChange={handleTimeLimitChange}
           />
         </section>
 
         <Timer
-          secondsLeft={timeLimit()}
-          setSecondsLeft={setTimeLimit}
-          isActive={active()}
+          secondsLeft={gameState.timeLimit}
+          setSecondsLeft={(secondsLeft) =>
+            setGameState("timeLimit", secondsLeft)
+          }
+          isActive={gameState.active}
           setDone={handleGameDone}
         />
         <TextPrompt
-          prompt={prompt}
-          isActive={active}
-          setActive={setActive}
-          userTypedText={typedText}
+          prompt={gameState.prompt}
+          isActive={gameState.active}
+          setActive={(isActive) => setGameState("active", isActive)}
+          userTypedText={gameState.typedText}
           handleInput={handleTextInput}
           handlePromptComplete={handlePromptComplete}
         />

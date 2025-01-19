@@ -5,7 +5,7 @@ import {
   ProgrammingLanguage,
   ProgrammingLanguageLabels,
 } from "../types/programmingLanguages";
-import AppMenuTriggerLabel from "./AppMenuTrigger";
+import AppMenuTrigger from "./AppMenuTrigger";
 
 interface Option {
   value: ProgrammingLanguage;
@@ -64,9 +64,7 @@ const SelectProgrammingLanguage: Component<{
       >
         <Select.Trigger>
           <Select.Value<Option>>
-            {(state) => (
-              <AppMenuTriggerLabel label={state.selectedOption().label} />
-            )}
+            {(state) => <AppMenuTrigger label={state.selectedOption().label} />}
           </Select.Value>
         </Select.Trigger>
 
