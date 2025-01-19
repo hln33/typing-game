@@ -90,10 +90,8 @@ const App: Component = () => {
 
   const handleTextInput = (event: InputEvent) => {
     if (!gameState.active) {
-      // setActive(true);
       setGameState("active", true);
     }
-    // setTypedText((event.target as HTMLInputElement).value);
     setGameState("typedText", (event.target as HTMLInputElement).value);
   };
 
