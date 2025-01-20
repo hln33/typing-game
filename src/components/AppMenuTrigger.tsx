@@ -8,7 +8,7 @@ const AppMenuTrigger: ParentComponent<ComponentProps<"div">> = (props) => {
       class={`${local.class} w-80 rounded-md border border-slate-600 bg-slate-900 p-3 transition-colors hover:border-slate-400`}
       {...others}
     >
-      {props.children}
+      {local.children}
     </div>
   );
 };
