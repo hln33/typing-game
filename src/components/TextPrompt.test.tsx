@@ -26,11 +26,11 @@ describe("<TextPrompt />", () => {
 
     const { queryByText } = render(() => (
       <TextPrompt
-        prompt={prompt}
-        userTypedText={typedText}
+        prompt={prompt()}
+        userTypedText={typedText()}
         handleInput={() => {}}
         handlePromptComplete={() => {}}
-        isActive={active}
+        isActive={active()}
         setActive={setActive}
       />
     ));
@@ -44,11 +44,11 @@ describe("<TextPrompt />", () => {
 
     const { queryByText } = render(() => (
       <TextPrompt
-        prompt={prompt}
-        userTypedText={typedText}
+        prompt={prompt()}
+        userTypedText={typedText()}
         handleInput={() => {}}
         handlePromptComplete={() => {}}
-        isActive={active}
+        isActive={active()}
         setActive={setActive}
       />
     ));
@@ -62,11 +62,11 @@ describe("<TextPrompt />", () => {
 
     const { getByTestId } = render(() => (
       <TextPrompt
-        prompt={prompt}
-        userTypedText={typedText}
+        prompt={prompt()}
+        userTypedText={typedText()}
         handleInput={() => {}}
         handlePromptComplete={() => {}}
-        isActive={active}
+        isActive={active()}
         setActive={setActive}
       />
     ));
@@ -81,11 +81,11 @@ describe("<TextPrompt />", () => {
 
     const { container, getByTestId } = render(() => (
       <TextPrompt
-        prompt={prompt}
-        userTypedText={typedText}
+        prompt={prompt()}
+        userTypedText={typedText()}
         handleInput={() => {}}
         handlePromptComplete={() => {}}
-        isActive={active}
+        isActive={active()}
         setActive={setActive}
       />
     ));
