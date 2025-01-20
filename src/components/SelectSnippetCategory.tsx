@@ -1,5 +1,6 @@
 import { DropdownMenu } from "@kobalte/core/dropdown-menu";
 import AppMenuTrigger from "./AppMenuTrigger";
+import AppMenuContent from "./AppMenu";
 
 const SelectSnippetCategory = () => {
   return (
@@ -9,10 +10,7 @@ const SelectSnippetCategory = () => {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          id="here"
-          class="ui-expanded:animate-content-show animate-content-hide w-80 space-y-0 rounded-md bg-slate-900 p-2 text-white"
-        >
+        <DropdownMenu.Content as={AppMenuContent}>
           <DropdownMenu.CheckboxItem class="flex gap-2 px-2 leading-8">
             Basic Syntax
             <DropdownMenu.ItemIndicator>Y</DropdownMenu.ItemIndicator>

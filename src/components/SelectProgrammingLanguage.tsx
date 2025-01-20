@@ -6,6 +6,7 @@ import {
   ProgrammingLanguageLabels,
 } from "../types/programmingLanguages";
 import AppMenuTrigger from "./AppMenuTrigger";
+import AppMenuContent from "./AppMenu";
 
 interface Option {
   value: ProgrammingLanguage;
@@ -69,8 +70,11 @@ const SelectProgrammingLanguage: Component<{
         </Select.Trigger>
 
         <Select.Portal>
-          <Select.Content class="animate-content-hide ui-expanded:animate-content-show -top-1 border border-slate-600 bg-slate-900">
-            <Select.Listbox class="p-2" />
+          <Select.Content
+            class="-top-2"
+            as={AppMenuContent}
+          >
+            <Select.Listbox />
           </Select.Content>
         </Select.Portal>
       </Select>
