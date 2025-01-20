@@ -101,7 +101,7 @@ const App: Component = () => {
 
         <section
           id="settings"
-          class="mb-10 space-y-4"
+          class="mb-10 flex flex-col items-center gap-2"
         >
           <SelectProgrammingLanguage
             selectedLanguage={programmingLanguage}
@@ -109,6 +109,7 @@ const App: Component = () => {
           />
           <SelectSnippetCategory />
           <SelectTime
+            class="mt-6"
             selectedTimeLimit={gameState.timeLimit}
             onTimeLimitChange={handleTimeLimitChange}
           />

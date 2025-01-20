@@ -5,8 +5,8 @@ import AppMenuContent from "./AppMenuContent";
 const SelectSnippetCategory = () => {
   return (
     <DropdownMenu>
-      <DropdownMenu.Trigger>
-        <AppMenuTrigger label="Snippet Types" />
+      <DropdownMenu.Trigger as={AppMenuTrigger}>
+        Snippet Types
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>

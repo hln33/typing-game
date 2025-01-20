@@ -65,7 +65,9 @@ const SelectProgrammingLanguage: Component<{
       >
         <Select.Trigger>
           <Select.Value<Option>>
-            {(state) => <AppMenuTrigger label={state.selectedOption().label} />}
+            {(state) => (
+              <AppMenuTrigger>{state.selectedOption().label}</AppMenuTrigger>
+            )}
           </Select.Value>
         </Select.Trigger>
 
