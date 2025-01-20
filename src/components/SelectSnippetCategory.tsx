@@ -1,6 +1,6 @@
 import { DropdownMenu } from "@kobalte/core/dropdown-menu";
 import AppMenuTrigger from "./AppMenuTrigger";
-import AppMenuContent from "./AppMenu";
+import AppMenuContent from "./AppMenuContent";
 
 const SelectSnippetCategory = () => {
   return (

@@ -6,7 +6,7 @@ import {
   ProgrammingLanguageLabels,
 } from "../types/programmingLanguages";
 import AppMenuTrigger from "./AppMenuTrigger";
-import AppMenuContent from "./AppMenu";
+import AppMenuContent from "./AppMenuContent";
 
 interface Option {
   value: ProgrammingLanguage;
