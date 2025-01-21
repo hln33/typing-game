@@ -1,3 +1,6 @@
+# Overview
+A typing game in the browser where users type in code snippets from various programming langugages.
+
 ## Usage
 
 Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
